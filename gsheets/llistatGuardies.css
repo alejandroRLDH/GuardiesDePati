@@ -1,0 +1,65 @@
+h1 {
+    color: black;
+    font-size: 30px;
+    font-family: "JetBrains Mono ExtraBold";
+    text-align: center;
+}
+
+h3 {
+    color: black;
+    font-size: 18px;
+    font-family: "JetBrains Mono SemiBold";
+    margin-bottom: 2px;
+}
+
+div {
+    text-align: center;
+    margin-top: 30px;
+}
+
+cuerpo {
+    font-size: 15px;
+    font-family: "JetBrains Mono";
+}
+
+table {
+    font-family: "JetBrains Mono";
+    text-align: center;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 20px;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.anunci {
+    border-color: grey;
+}
+
+button {
+    background-color: #1f6abd;
+    border-color: black;
+    border-width: 1px;
+    color: white;
+    padding: 5px 7px;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+/* Darker background on mouse-over */
+button:hover {
+    background-color: #6387f1;
+}
+
+i{
+    cursor: pointer;
+    padding-left: 7px;
+}

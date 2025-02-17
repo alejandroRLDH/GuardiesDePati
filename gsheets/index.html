@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <!--DONE (Opcionalment posar un nom a l'aplicació i posar un favicon -->
+    <title>Gestió de Guàrdies de Pati</title>
+    <script src="sheetService.js"></script>
+    <script src="https://kit.fontawesome.com/f52af23a03.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" type="image/x-icon" href="/gsheets/favicon.png">
+</head>
+<body>
+<!--DONE: Heu de personalitzar la pàgina d'inici -->
+    <div><h1>GESTIÓ DE <br> GUÀRDIES <br> DE PATI</h1></div>
+    <div><img src="presentacio_families.png" width="409" height="131"></div>
+
+<!--DONE: Heu de personalitzar el botó -->
+    <div><button onclick="initGoogle()">Autoritza el correu <i class="fa-brands fa-google"></i></button></div>
+
+<!-- No tocar les dues línies següents-->
+    <script src="https://accounts.google.com/gsi/client" async defer>
+    </script>
+    <script>
+        function initGoogle() {
+            const client = google.accounts.oauth2.initTokenClient({
+                client_id: '111441058742-vgcv84if87m72p3up542kt0vdfu6kesh.apps.googleusercontent.com',
+                scope: 'https://www.googleapis.com/auth/spreadsheets.readonly ' +
+                    'https://www.googleapis.com/auth/userinfo.profile ' +
+                    'https://www.googleapis.com/auth/userinfo.email'	,
+                //TODO Cercar el de google
+                callback: (tokenResponse) => {
+                    if (tokenResponse && tokenResponse.access_token) {
+                        console.log(tokenResponse, tokenResponse.access_token);
+                        localStorage.setItem('token', tokenResponse.access_token);
+                        window.location.href = 'llistatGuardies.html'
+                    }
+                },
+            });
+            client.requestAccessToken();
+        }
+    </script>
+</body>
+</html>

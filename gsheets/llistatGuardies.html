@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>App de guàrdies</title>
+    <script src="sheetService.js"></script>
+    <script src="https://kit.fontawesome.com/f52af23a03.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="llistatGuardies.css">
+    <link rel="icon" type="image/x-icon" href="/gsheets/favicon.png">
+</head>
+<body>
+    <div><img src="presentacio_families.png"></div>
+    <!-- Anuncis i benvinguda -->
+    <div class="anunci"><h3>Anuncis</h3>
+    <cuerpo id="anuncis">No hi ha cap anunci</cuerpo></div>
+    <div><h2 id="nom"></h2></div>
+    <div><h1>Llista de guàrdies</h1></div>
+    <div id="llistarResultats">
+</div>
+    <script>
+        // Creació de taula
+        function printResultat(items){
+            let taula = ''
+            taula+='<table class="center"><tr><th>Dia i pati</th><th>Veure guàrdies</th></tr>';
+
+            items.forEach(item =>{
+                taula+=`<tr><td>${item}</td>`
+                taula+=`<td><a href=\"detallGuardia.html?id=${item}\"><button>Veure <i class="fa-regular fa-eye"></i></button></a></td>`
+            })
+            taula+=`</table>`
+
+            document.getElementById('llistarResultats').innerHTML=taula;
+        }
+
+      // Agafada de dates
+      async function init(){
+         let dades = await getDadesFila("Guardies!B1:K1");
+         printResultat(dades)
+      }
+
+      (()=>{
+          init()
+      })()
+    </script>
+    <script>
+        // Codi per agafar i pintar els anuncis
+        function printAnunci(items){
+            let taula = ''
+            taula+='<table class="center">';
+            items.forEach(item =>{
+                taula+=`<tr><td>${item}</td>`
+            })
+            taula+=`</table>`
+
+            document.getElementById('anuncis').innerHTML=taula;
+        }
+
+        async function init(){
+            let dades = await getDadesColumna("Avisos!A1:A100");
+            printAnunci(dades)
+        }
+
+        (()=>{
+            init()
+        })()
+    </script>
+    <script>
+        // Agafador del nom per donar la benvinguda
+        async function benvinguda() {
+            let usuari = await getDadesUsuari();
+            document.getElementById('nom').innerHTML = 'Benvingut, ' + usuari.names[0].givenName + " " + usuari.names[0].familyName + ".";
+        }
+        benvinguda()
+    </script>
+</body>
+</html>

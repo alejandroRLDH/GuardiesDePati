@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulari Posts</title>
+    <script src="sheetService.js"></script>
+    <script src="https://kit.fontawesome.com/f52af23a03.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="detallGuardia.css">
+    <link rel="icon" type="image/x-icon" href="/gsheets/favicon.png">
+    </head>
+<body>
+<div><h1 id="titol"></h1></div>
+<div id="taula">Carregant...</div>
+<div id="info" class="info">Instruccions:<br>Cap elegida.</div>
+<div class="tornada"><button onclick="history.back()"><i class="fa-solid fa-arrow-left"></i> Torna</button></div>
+<script>
+    // Conversor de dies a lletres (per la taula)
+    var dianombre = 0;
+    const urlParams = new URLSearchParams(window.location.search);
+    const nomParametre = urlParams.get('id');
+    let dades3
+    document.getElementById('titol').innerHTML = nomParametre
+    async function conversorDies(){
+        for(i=1; i<10; i++) {
+            let dades = await getDadesColumna("Dies!A" + i + ":A" + i);
+            if(dades == nomParametre){
+                dianombre = i;
+                i=10;
+            }
+        }
+    }
+    // Pintador de la taula
+    function printTaula(items, items2){
+        let taula = ''
+        taula+='<div><table class="dates"><tr><th>Tasca</th><th>Professor</th><th>Instruccions</th></tr>';
+        for (i=0; i<items.length; i++){
+            taula+=`<tr><td>${items[i]}</td><td>${items2[i]}</td><td><button onclick=pintarInfo(${i})>Veure</button></td></tr>`;
+        }
+        taula+=`</table></div>`
+        document.getElementById('taula').innerHTML=taula;
+    }
+    // Agafador de dates
+    async function init() {
+        await conversorDies()
+        let dia = await getDadesColumna("Dies!B" + dianombre + ":B" + dianombre);
+        //let dades = getDadesFila("Guardies!B1:K1");
+        let dades = await getDadesColumna("Tasques!A2:A13");
+        let dades2 = await getDadesColumna("Guardies!" + dia + "2:" + dia + "13");
+        dades3 = await getDadesColumna("Tasques!B2:B13");
+        printTaula(dades, dades2);
+    }
+
+    function pintarInfo(info){
+        console.log(dades3[info])
+        document.getElementById('info').innerHTML="Instruccions:</br>" + dades3[info];
+    }
+    (()=>{
+        init()
+    })()
+</script>
+</body>
+</html>
