@@ -12,7 +12,7 @@
 <div><h1 id="titol"></h1></div>
 <div id="taula">Carregant...</div>
 <div id="info" class="info">Instruccions:<br>Cap elegida.</div>
-<div class="tornada"><button onclick="history.back()"><i class="fa-solid fa-arrow-left"></i> Torna</button></div>
+<div class="tornada"><button onclick="history.back()" class="back-button"><i class="fa-solid fa-arrow-left"></i> Torna</button></div>
 <script>
     // Conversor de dies a lletres (per la taula)
     var dianombre = 0;
@@ -34,7 +34,7 @@
         let taula = ''
         taula+='<div><table class="dates"><tr><th>Tasca</th><th>Professor</th><th>Instruccions</th></tr>';
         for (i=0; i<items.length; i++){
-            taula+=`<tr><td>${items[i]}</td><td>${items2[i]}</td><td><button onclick=pintarInfo(${i})>Veure</button></td></tr>`;
+            taula+=`<tr><td>${items[i]}</td><td>${items2[i]}</td><td><button onclick=pintarInfo(${i})>Veure <i class="fa-regular fa-eye"></button></td></tr>`;
         }
         taula+=`</table></div>`
         document.getElementById('taula').innerHTML=taula;
