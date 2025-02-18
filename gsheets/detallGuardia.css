@@ -36,7 +36,7 @@ table {
 }
 
 /* Darker background on mouse-over */
-back-button:hover {
+.back-button:hover {
     background-color: #c6d5ff;
 }
 

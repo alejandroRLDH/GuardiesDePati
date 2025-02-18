@@ -27,7 +27,6 @@
                 scope: 'https://www.googleapis.com/auth/spreadsheets.readonly ' +
                     'https://www.googleapis.com/auth/userinfo.profile ' +
                     'https://www.googleapis.com/auth/userinfo.email'	,
-                //TODO Cercar el de google
                 callback: (tokenResponse) => {
                     if (tokenResponse && tokenResponse.access_token) {
                         console.log(tokenResponse, tokenResponse.access_token);
