@@ -12,7 +12,7 @@
     <div><img src="presentacio_families.png"></div>
     <!-- Anuncis i benvinguda -->
     <div class="anunci"><h3>Anuncis</h3>
-    <cuerpo id="anuncis">No hi ha cap anunci</cuerpo></div>
+    <cuerpo id="anuncis">No hi ha cap anunci.</cuerpo></div>
     <div><h2 id="nom"></h2></div>
     <div><h1>Llista de guàrdies</h1></div>
     <div id="llistarResultats" class="taula"></div>
@@ -31,17 +31,6 @@
             document.getElementById('llistarResultats').innerHTML=taula;
         }
 
-      // Agafada de dates
-      async function init(){
-         let dades = await getDadesFila("Guardies!B1:K1");
-         printResultat(dades)
-      }
-
-      (()=>{
-          init()
-      })()
-    </script>
-    <script>
         // Codi per agafar i pintar els anuncis
         function printAnunci(items){
             let taula = ''
@@ -50,26 +39,27 @@
                 taula+=`<tr><td>${item}</td>`
             })
             taula+=`</table>`
-
             document.getElementById('anuncis').innerHTML=taula;
         }
 
-        async function init(){
-            let dades = await getDadesColumna("Avisos!A1:A100");
-            printAnunci(dades)
-        }
-
-        (()=>{
-            init()
-        })()
-    </script>
-    <script>
-        // Agafador del nom per donar la benvinguda
+        // Agafador i pintador del nom per donar la benvinguda
         async function benvinguda() {
             let usuari = await getDadesUsuari();
             document.getElementById('nom').innerHTML = 'Benvingut, ' + usuari.names[0].givenName + " " + usuari.names[0].familyName + ".";
         }
-        benvinguda()
+
+        // Agafada de dates
+        async function init(){
+            let dadesGuardies = await getDadesFila("Guardies!B1:K1");
+            let dadesAnuncis = await getDadesColumna("Avisos!A1:A100");
+            printAnunci(dadesAnuncis)
+            printResultat(dadesGuardies)
+            benvinguda()
+        }
+
+      (()=>{
+          init()
+      })()
     </script>
 </body>
 </html>
